@@ -2,12 +2,21 @@ from flask import Flask
 from flask import request
 import requests
 import time
-import VotingBlockchain
+import Blockchain as bc
 import json
 
+    
+class interface_methods():
+    def Announce_New_Block(self, block):
+        for Peer in peers:
+            url = "https://{}/add_block".format(peer)
+            requests.post(url,data=json.dumps(block.__dict__, sort_keys=True))
 
+
+    
 app = Flask(__name__)
-blockchain = VotingBlockchain.Blockchain()
+interface = interface_methods()
+blockchain = bc.Blockchain(interface)
 
 
 @app.route('/new_vote', methods=['POST'])
@@ -25,7 +34,7 @@ def New_Vote():
     return "Success",201
 
 
-@app.route('/chain', methods=['GET'])
+@app.route('/', methods=['GET'])
 def Get_Chain():
     chain_data=[]
     for block in blockchain.chain:
@@ -39,9 +48,9 @@ def Mine_Unconfirmed_Transactions():
         return "No Votes to Mine"
     return "block #{} is mined.".format(result)
 
-@app.route('/pendingVotes')
+@app.route('/pending_contracts')
 def Get_Pending_Votes():
-    return json.dumps(blockchain.unconfirmed_votes)
+    return json.dumps(blockchain.unconfirmed_Contract)
 
 
 
@@ -86,10 +95,11 @@ def Add_and_Validate_Block():
         return "the block was discarded by the node", 400
     return "Block added to the chain", 201
     
-def Announce_New_Block(block):
-    for Peer in peers:
-        url = "https://{}/add_block".format(peer)
-        requests.post(url,data=json.dumps(block.__dict__, sort_keys=True))
+class interface_methods():
+    def Announce_New_Block(self, block):
+        for Peer in peers:
+            url = "https://{}/add_block".format(peer)
+            requests.post(url,data=json.dumps(block.__dict__, sort_keys=True))
 
 
     

@@ -6,9 +6,9 @@ import time
 class Block:
     """Block for blockchain python """
 
-    def __init__(self, index, vote_data, timestamp, PREV_hash):
+    def __init__(self, index, contracts, timestamp, PREV_hash):
         self.index = index
-        self.voteData = vote_data
+        self.contract = contracts
 
         self.timestamp = timestamp
         self.Previous_Hash = PREV_hash
@@ -20,7 +20,7 @@ class Block:
         return sha512(block_string.encode()).hexdigest()
 
 
-class VoteData():
-    IDhash = ""
-    name =""
-
+class Contract():
+    """  """
+    pdf = ()
+    signiture=""
