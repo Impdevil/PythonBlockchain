@@ -1,7 +1,7 @@
 from hashlib import sha512
 import json
 import time
-
+import pdfminer
 
 class Block:
     """Block for blockchain python """

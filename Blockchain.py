@@ -4,11 +4,10 @@ import Block as PyBlock
 class Blockchain():
 
     difficulty =2
-    def __init__(self, interface):
+    def __init__(self):
         self.unconfirmed_Contract = [] ## data yet to be sent to a block
         self.chain = []
         self.Create_Genesis_Block()
-        self.interface = interface
     def Create_Genesis_Block(self):
         """creates the first Block for the chain to start the chain
             Block index = 0 && previous_hash = 0 && output hash is correct
@@ -53,7 +52,7 @@ class Blockchain():
     def Add_New_VoteTrade(self, vote):
         self.unconfirmed_Contract.append(vote)
 
-    def mine(self):
+    def mine(self, interface):
         """Builds the interface for build the blockchain and distributing id"""
         if not self.unconfirmed_Contract:
             return False
@@ -66,6 +65,6 @@ class Blockchain():
         proof = self.Proof_Of_Work(new_block)
         self.Add_Block(new_block, proof)
         self.unconfirmed_Contract =[]
-        self.interface.Announce_New_Block(new_block)
+        interface.Announce_New_Block(new_block)
         return new_block.index
     #
